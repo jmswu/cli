@@ -62,10 +62,10 @@ char* cli_parse(char* buffer, const char* pattern)
             // or, may result in a fake mis-match.
             // eg buffer = "hello", pattern = "he", this will come back as positive
             // also can use isspace() to check for space instead of checking for 0x20
-            if ((*buffer == 0x20) || (*buffer == 0))
+            if ((*buffer == 0x20) || (*buffer == 0) || (*buffer == 0x0A))
                 return buffer;
         }
-        
+
         // convert to lower case for comparison, 
         b = tolower(*buffer++);
 
@@ -77,4 +77,31 @@ char* cli_parse(char* buffer, const char* pattern)
             break;
     }
     return 0;
+}
+
+
+void cli_scan(char* input, cli_struct_t* cli_list, int cli_num){
+    //cli_print(cli_list, cli_num);
+
+    char* return_ptr;       // return pointer from cli_parse()
+    cli_struct_t cmd;       // one command from the cli_list
+
+    // loop through all the command from the list
+    for(int i = 0; i < cli_num; i++){
+
+        // get one command from the list
+        cmd = cli_list[i]; 
+
+        cli_print(&cmd, 1);
+
+        // parse the command in the user input
+        return_ptr = cli_parse(input, cmd.cmd);
+
+        printf("ptr: %p\n", return_ptr);
+
+        // if a match is found
+        if (return_ptr){
+            cmd.callback(return_ptr, cmd.arg1, cmd.arg2);
+        }
+    }
 }
