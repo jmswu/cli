@@ -2,9 +2,9 @@
 #include <stdint.h>
 #include "cli.h"
 
-void l1_test1_func(char*, int, int);        // level 1 command, test1
-void l1_test2_func(char*, int, int);        // level 1 command, test2
-void l1_test3_func(char*, int, int);        // level 1 command, test3
+void l1_test1_func(char*, void*, void*);        // level 1 command, test1
+void l1_test2_func(char*, void*, void*);        // level 1 command, test2
+void l1_test3_func(char*, void*, void*);        // level 1 command, test3
 
 int main(int argc, char *argv[])
 {
@@ -51,19 +51,17 @@ int main(int argc, char *argv[])
             }
         }
     }
-
-    
     return 0;
 }
 
-void l1_test1_func(char* input, int arg1, int arg2){
+void l1_test1_func(char* input, void* arg1, void* arg2){
     printf("Running L1_test_1\n\n");
 }
 
-void l1_test2_func(char* input, int arg1, int arg2){
+void l1_test2_func(char* input, void* arg1, void* arg2){
     printf("Running L1_test_2\n\n");
 }
 
-void l1_test3_func(char* input, int arg1, int arg2){
+void l1_test3_func(char* input, void* arg1, void* arg2){
     printf("Running L1_test_3\n\n");
 }

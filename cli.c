@@ -3,16 +3,16 @@
 #include "cli.h"
 #include <ctype.h>
 
-void cli_default(char* input, int arg1, int arg2){
-    printf("input: %s, arg1: %d, arg2: %d\n", input, arg1, arg2);
+void cli_default(char* input, void* arg1, void* arg2){
+    printf("input: %s\n", input);
 }
 
 void cli_param_init(cli_struct_t* cli_struct, unsigned int cli_num){
     for(unsigned int i = 0; i < cli_num; i++){
         cli_struct[i].cmd = "default";
         cli_struct[i].callback = cli_default;
-        cli_struct[i].arg1 = 0;
-        cli_struct[i].arg2 = 0;
+        cli_struct[i].arg1 = NULL;
+        cli_struct[i].arg2 = NULL;
         cli_struct[i].option_count = 0;
         cli_struct[i].next = (cli_struct_t*)NULL;
     }
@@ -20,7 +20,7 @@ void cli_param_init(cli_struct_t* cli_struct, unsigned int cli_num){
 
 void cli_print(cli_struct_t* cli_struct, unsigned int cli_num){
     for(unsigned int i = 0; i < cli_num; i++){
-        printf("cmd: %s, cb: %p, arg1: %d, arg2: %d, count: %d, next: %p\n",
+        printf("cmd: %s, cb: %p, arg1: %p, arg2: %p, count: %d, next: %p\n",
             cli_struct[i].cmd,
             cli_struct[i].callback,
             cli_struct[i].arg1,
@@ -30,10 +30,12 @@ void cli_print(cli_struct_t* cli_struct, unsigned int cli_num){
     }
 }
 
-// parse a pattern in the buffer
-// @param - char* buffer, char array needs to be parsed
-// @param - const char* pattern, char array of pattern
-// @return - 0 if no match, new pointer after the pattern if there is a match
+/* 
+ * parse a pattern in the buffer
+ * @param - char* buffer, char array needs to be parsed
+ * @param - const char* pattern, char array of pattern
+ * @return - 0 if no match, new pointer after the pattern if there is a match
+ */
 char* cli_parse(char* buffer, const char* pattern);
 
 char* cli_parse(char* buffer, const char* pattern)
@@ -79,6 +81,10 @@ char* cli_parse(char* buffer, const char* pattern)
     return 0;
 }
 
+
+void cli_help(char* input, void* arg1, void* arg2){
+    
+}
 
 int cli_scan(char* input, cli_struct_t* cli_list, int cli_num){
     //cli_print(cli_list, cli_num);

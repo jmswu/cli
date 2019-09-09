@@ -7,17 +7,17 @@
 /*
  * cli call back function
  * @param char*     pointer to the user input
- * @param int       user argument 1
- * @param int       user argument 2
+ * @param void*     pointer user argument 1
+ * @param void*     pointer user argument 2
  */
-typedef void (*cli_callback_t)(char*, int, int);
+typedef void (*cli_callback_t)(char*, void*, void*);
 
 struct cli_struct
 {
     const char* cmd;                // pointer to a command
     cli_callback_t callback;        // call back function to be executed
-    int arg1;                       // call back argument 1
-    int arg2;                       // call back argument 2
+    void* arg1;                     // pointer call back argument 1
+    void* arg2;                     // pointer call back argument 2
     int option_count;               // options counts
     struct cli_struct* next;        // cli_struct pointer array, these will 
                                     // the options for the current command
@@ -29,10 +29,10 @@ typedef struct cli_struct cli_struct_t;
  * a default cli callback
  * 
  * @param char* input   pointer to user input string
- * @param int arg1      optional argument 1 to the call back
- * @param int arg2      optional argument 2 to the call back
+ * @param void* arg1    pointer to optional argument 1 to the call back
+ * @param void* arg2    pointer optional argument 2 to the call back
  */
-void cli_default(char* input, int arg1, int arg2);
+void cli_default(char* input, void* arg1, void* arg2);
 
 /*
  * Initial a cli struct
