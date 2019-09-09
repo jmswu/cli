@@ -80,11 +80,14 @@ char* cli_parse(char* buffer, const char* pattern)
 }
 
 
-void cli_scan(char* input, cli_struct_t* cli_list, int cli_num){
+int cli_scan(char* input, cli_struct_t* cli_list, int cli_num){
     //cli_print(cli_list, cli_num);
 
     char* return_ptr;       // return pointer from cli_parse()
     cli_struct_t cmd;       // one command from the cli_list
+
+    cli_struct_t help;
+    help.cmd = "help";
 
     // loop through all the command from the list
     for(int i = 0; i < cli_num; i++){
@@ -92,16 +95,15 @@ void cli_scan(char* input, cli_struct_t* cli_list, int cli_num){
         // get one command from the list
         cmd = cli_list[i]; 
 
-        cli_print(&cmd, 1);
-
         // parse the command in the user input
         return_ptr = cli_parse(input, cmd.cmd);
-
-        printf("ptr: %p\n", return_ptr);
 
         // if a match is found
         if (return_ptr){
             cmd.callback(return_ptr, cmd.arg1, cmd.arg2);
+            return 1;
         }
     }
+
+    return 0;
 }

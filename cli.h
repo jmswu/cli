@@ -58,8 +58,9 @@ void cli_print(cli_struct_t* cli_struct, unsigned int cli_num);
  * @param char* input               user command line input
  * @param cli_struct_t* cli_list    list commands to scan and associated call back function
  * @param int cli_num               number of command in the cli_list
+ * @return                          0 = no match, 1 = match
  */
-void cli_scan(char* input, cli_struct_t* cli_list, int cli_num);
+int cli_scan(char* input, cli_struct_t* cli_list, int cli_num);
 
 
 

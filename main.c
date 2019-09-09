@@ -37,13 +37,19 @@ int main(int argc, char *argv[])
 
     const int buff_size = 100; 
     char buff[buff_size];
+    int rc;
     while(1){
         buff[0] = 0;
-        printf("please enter command: ");
+        printf("\ncmd:");
         fgets(buff, buff_size, stdin);
-        printf("user input: %s\n", buff);
 
-        cli_scan(buff, cmd_list[0], sizeof(cmd_list)/sizeof(cmd_list[0]));
+        rc = cli_scan(buff, cmd_list[0], sizeof(cmd_list)/sizeof(cmd_list[0]));
+        if (rc == 0){
+            printf("bad command, try:\n");
+            for(int i = 0; i < sizeof(cmd_list)/sizeof(cmd_list[0]); i++){
+                printf("%s\n", cmd_list[i]->cmd);
+            }
+        }
     }
 
     
@@ -51,13 +57,13 @@ int main(int argc, char *argv[])
 }
 
 void l1_test1_func(char* input, int arg1, int arg2){
-    printf("L1_test_1\n");
+    printf("Running L1_test_1\n\n");
 }
 
 void l1_test2_func(char* input, int arg1, int arg2){
-    printf("L1_test_2\n");
+    printf("Running L1_test_2\n\n");
 }
 
 void l1_test3_func(char* input, int arg1, int arg2){
-    printf("L1_test_3\n");
+    printf("Running L1_test_3\n\n");
 }
