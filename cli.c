@@ -54,6 +54,7 @@ char* cli_parse(char* buffer, const char* pattern)
         // get one char from the pattern, then set the pointer to next 
         // char in pattern. 
         p = *pattern++;
+
         // check if it's end of the pattern, return new buffer pointer 
         // if its the end of pattern
         if(p == 0){
@@ -64,11 +65,14 @@ char* cli_parse(char* buffer, const char* pattern)
             if ((*buffer == 0x20) || (*buffer == 0))
                 return buffer;
         }
+        
         // convert to lower case for comparison, 
         b = tolower(*buffer++);
 
         // exit loop if the end of the buffer is reached, 
         // or the there is a mis-match in the data
+        // continue to the next one if they are match, 
+        // and not the end of the buffer
         if(b == 0 || b != p)
             break;
     }
