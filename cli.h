@@ -6,6 +6,9 @@
 
 /*
  * cli call back function
+ * @param char*     pointer to the user input
+ * @param int       user argument 1
+ * @param int       user argument 2
  */
 typedef void (*cli_callback_t)(char*, int, int);
 
@@ -52,6 +55,9 @@ void cli_print(cli_struct_t* cli_struct, unsigned int cli_num);
 /*
  * scan the input for command, and execute the
  * command as per callback
+ * @param char* input               user command line input
+ * @param cli_struct_t* cli_list    list commands to scan and associated call back function
+ * @param int cli_num               number of command in the cli_list
  */
 void cli_scan(char* input, cli_struct_t* cli_list, int cli_num);
 
